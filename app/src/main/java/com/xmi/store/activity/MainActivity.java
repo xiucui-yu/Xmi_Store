@@ -1,25 +1,20 @@
 package com.xmi.store.activity;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xmi.store.R;
 import com.xmi.store.activity.base.BaseFragmentActivity;
-import com.xmi.store.fragment.SuperAwesomeCardFragment;
 import com.xmi.store.tripartite.PagerSlidingTabStrip;
-import com.xmi.store.tripartite.SystemBarTintManager;
+import com.xmi.store.util.TabFragmentFactory;
 import com.xmi.store.util.UIUtils;
 
 import butterknife.Bind;
@@ -42,33 +37,13 @@ public class MainActivity extends BaseFragmentActivity {
     @Bind(R.id.pager)
     ViewPager pager;
 
+    private long oneOnClick;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        //³Á½şÊ½activity
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-        }
-
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.price_color);//Í¨ÖªÀ¸ËùĞèÑÕÉ«
-
-    }
-
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
     }
 
     private void init() {
@@ -82,7 +57,6 @@ public class MainActivity extends BaseFragmentActivity {
         tabs.setCurrentItem(0);
     }
 
-
     private class MyFragmentViewpager extends FragmentPagerAdapter {
         private final String[] TITLES = {"Home", "Apps", "Game", "Topics", "Classify", " Fiery", "Welfare"};
 
@@ -92,7 +66,7 @@ public class MainActivity extends BaseFragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return SuperAwesomeCardFragment.newInstance(position);
+            return TabFragmentFactory.getTabFragemntInstance(position);
         }
 
         @Override
@@ -103,6 +77,25 @@ public class MainActivity extends BaseFragmentActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return TITLES[position];
+        }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (oneOnClick == 0) {
+            oneOnClick = System.currentTimeMillis();
+            Toast.makeText(this, "å†æŒ‰ä¸€æ¬¡å³é€€å‡ºç¨‹åº", Toast.LENGTH_LONG).show();
+        } else {
+            long twoOnClick = System.currentTimeMillis();
+            long porr = twoOnClick - oneOnClick;
+            if (porr > 2000) {
+                System.exit(0);
+            } else {
+                oneOnClick = System.currentTimeMillis();
+                Toast.makeText(this, "å†æŒ‰ä¸€æ¬¡å³é€€å‡ºç¨‹åº", Toast.LENGTH_LONG).show();
+
+            }
         }
     }
 }

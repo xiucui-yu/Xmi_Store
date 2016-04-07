@@ -1,8 +1,14 @@
 package com.xmi.store.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
+import android.view.Window;
+import android.view.WindowManager;
 
+import com.xmi.store.R;
 import com.xmi.store.XmiApp;
+import com.xmi.store.tripartite.SystemBarTintManager;
 
 /**
  * User: xiucui.yu
@@ -12,7 +18,7 @@ import com.xmi.store.XmiApp;
  */
 public class UIUtils {
     /**
-     * 全局上下文环境
+     * 鍏ㄥ眬Context
      *
      * @return
      */
@@ -26,16 +32,28 @@ public class UIUtils {
         return (int) (pxValue / fontScale + 0.5f);
     }
 
-    /**
-     * 将sp值转换为px值，保证文字大小不变
-     *
-     * @param spValue
-     * @param spValue （DisplayMetrics类中属性scaledDensity）
-     * @return
-     */
+
     public static int sp2px(float spValue) {
         final float fontScale = getContext().getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
+
+    /**
+     * 娌夋蹈寮廰ctivity
+     */
+    public static void initImmersionStyle(Activity act) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window win = act.getWindow();
+            WindowManager.LayoutParams winParams = win.getAttributes();
+            final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+            winParams.flags |= bits;
+            win.setAttributes(winParams);
+        }
+        SystemBarTintManager mTintManager = new SystemBarTintManager(act);
+        mTintManager.setStatusBarTintEnabled(true);
+        mTintManager.setStatusBarTintResource(R.color.status_bar_bg);
+    }
+
 
 }
