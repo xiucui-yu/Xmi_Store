@@ -1,10 +1,19 @@
 package com.xmi.store.fragment;
 
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 
+import com.xmi.store.R;
 import com.xmi.store.fragment.base.BaseFramgment;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 /**
@@ -13,11 +22,24 @@ import com.xmi.store.fragment.base.BaseFramgment;
  * Time: 18:23
  * FIXME
  */
-public class WelfareTabFrahment extends BaseFramgment implements AdapterView.OnItemClickListener {
+public class WelfareTabFrahment extends BaseFramgment {
+    @Bind(R.id.mlistview)
+    ListView mlistview;
+
+    @Override
+    protected void initView() {
+        mMainView = View.inflate(getActivity(), R.layout.fragment_home_layout, null);
+        ButterKnife.bind(this, mMainView);
+    }
 
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    protected void onRefresh() {
+
+    }
+
+    @Override
+    protected void onMore() {
 
     }
 }

@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 
 
 public class MainActivity extends BaseFragmentActivity {
+
     @Bind(R.id.iv_info)
     ImageView ivInfo;
     @Bind(R.id.tv_search)
@@ -36,18 +37,17 @@ public class MainActivity extends BaseFragmentActivity {
     PagerSlidingTabStrip tabs;
     @Bind(R.id.pager)
     ViewPager pager;
-
     private long oneOnClick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         init();
     }
 
     private void init() {
-        ButterKnife.bind(this);
         MyFragmentViewpager viewpager = new MyFragmentViewpager(getSupportFragmentManager());
         pager.setAdapter(viewpager);
         tabs.setTextSize(UIUtils.sp2px(15));
@@ -89,7 +89,7 @@ public class MainActivity extends BaseFragmentActivity {
         } else {
             long twoOnClick = System.currentTimeMillis();
             long porr = twoOnClick - oneOnClick;
-            if (porr > 2000) {
+            if (porr > 5000) {
                 System.exit(0);
             } else {
                 oneOnClick = System.currentTimeMillis();
@@ -98,4 +98,6 @@ public class MainActivity extends BaseFragmentActivity {
             }
         }
     }
+
+
 }

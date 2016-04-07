@@ -5,8 +5,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import com.xmi.store.R;
 import com.xmi.store.fragment.base.BaseFramgment;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * User: xiucui.yu
@@ -15,10 +20,24 @@ import com.xmi.store.fragment.base.BaseFramgment;
  * FIXME
  */
 public class SubjectTabFragment extends BaseFramgment {
-    @Nullable
+    @Bind(R.id.mlistview)
+    ListView mlistview;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater,container,savedInstanceState);
+    protected void initView() {
+        mMainView = View.inflate(getActivity(), R.layout.fragment_home_layout, null);
+        ButterKnife.bind(this, mMainView);
+    }
+
+
+    @Override
+    protected void onRefresh() {
+
+    }
+
+    @Override
+    protected void onMore() {
+
     }
 
 }

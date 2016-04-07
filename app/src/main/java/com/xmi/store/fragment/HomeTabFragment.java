@@ -1,12 +1,17 @@
 package com.xmi.store.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import com.xmi.store.R;
 import com.xmi.store.fragment.base.BaseFramgment;
+import com.xmi.store.load.LoadingView;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * User: xiucui.yu
@@ -17,10 +22,35 @@ import com.xmi.store.fragment.base.BaseFramgment;
 public class HomeTabFragment extends BaseFramgment {
 
 
-    @Nullable
+    @Bind(R.id.mlistview)
+    ListView mlistview;
+    @Bind(R.id.loadView)
+    LoadingView loadView;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater,container,savedInstanceState);
+    protected void initView() {
+        ButterKnife.bind(this, mMainView);
+
+
+
     }
+
+    @Override
+    protected void onRefresh() {
+
+    }
+
+    @Override
+    protected void onMore() {
+
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
 
 }

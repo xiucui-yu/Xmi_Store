@@ -18,7 +18,7 @@ public class XmiApp extends Application {
     public void onCreate() {
         super.onCreate();
         applicaion = this;
-        //��ȡ�豸��Ϣ
+        //初始化设备信息
         AppInfo.getInstance(applicaion);
 
 
