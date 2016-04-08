@@ -14,10 +14,14 @@ public class XmiApp extends Application {
 
     private static XmiApp applicaion;
 
+    public static int tid;
+
     @Override
     public void onCreate() {
         super.onCreate();
         applicaion = this;
+        //主线程的id
+        tid=android.os.Process.myTid();
         //初始化设备信息
         AppInfo.getInstance(applicaion);
 

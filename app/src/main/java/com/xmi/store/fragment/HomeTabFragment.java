@@ -28,11 +28,13 @@ public class HomeTabFragment extends BaseFramgment {
     LoadingView loadView;
 
     @Override
+    protected void initData() {
+
+    }
+
+    @Override
     protected void initView() {
-        ButterKnife.bind(this, mMainView);
-
-
-
+        mMainView = View.inflate(getActivity(), R.layout.fragment_home_layout, null);
     }
 
     @Override
@@ -46,11 +48,7 @@ public class HomeTabFragment extends BaseFramgment {
     }
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
+
 
 
 }

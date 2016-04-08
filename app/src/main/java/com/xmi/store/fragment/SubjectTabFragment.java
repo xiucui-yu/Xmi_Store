@@ -24,9 +24,13 @@ public class SubjectTabFragment extends BaseFramgment {
     ListView mlistview;
 
     @Override
+    protected void initData() {
+
+    }
+
+    @Override
     protected void initView() {
         mMainView = View.inflate(getActivity(), R.layout.fragment_home_layout, null);
-        ButterKnife.bind(this, mMainView);
     }
 
 

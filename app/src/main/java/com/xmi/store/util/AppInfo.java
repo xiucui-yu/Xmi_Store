@@ -119,4 +119,18 @@ public class AppInfo {
     public static Toast getGlobalToast() {
         return instance.globalToast;
     }
+
+    public static Thread getUiThread() {
+        return instance.uiThread;
+    }
+
+
+    public static boolean isAppInBackground() {
+        return instance.appInBackground;
+    }
+
+    public static Handler getUiHandler() {
+        return instance.uiHandler;
+    }
+
 }

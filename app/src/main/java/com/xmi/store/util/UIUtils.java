@@ -55,5 +55,18 @@ public class UIUtils {
         mTintManager.setStatusBarTintResource(R.color.status_bar_bg);
     }
 
+    public static void runOnUiThread(Runnable runnable) {
+        if (isMianThread()) {
+            runnable.run();
+        } else {
+            AppInfo.getUiHandler().post(runnable);
+        }
+
+    }
+
+    private static boolean isMianThread() {
+        return XmiApp.tid == android.os.Process.myTid();
+    }
+
 
 }

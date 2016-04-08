@@ -10,9 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xmi.store.R;
+import com.xmi.store.callback.ErrorClickListener;
 import com.xmi.store.fragment.HomeTabFragment;
+import com.xmi.store.view.PageStateLayout;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * User: xiucui.yu
@@ -26,10 +29,17 @@ public abstract class BaseFramgment extends Fragment {
 
     protected View mMainView;
 
+    protected PageStateLayout stateLayout;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         initView();
+        ButterKnife.bind(this, mMainView);
+        stateLayout = new PageStateLayout(getActivity());
+        stateLayout.setContextView(mMainView);
+        stateLayout.setStatus(PageStateLayout.STATE_EMPTY);
+        stateLayout.setErrorClickListener(listener);
         swipeRefresh.setColorSchemeResources(R.color.theme_orange);
         swipeRefresh.setSize(SwipeRefreshLayout.LARGE);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -39,8 +49,16 @@ public abstract class BaseFramgment extends Fragment {
             }
         });
 
-        return mMainView;
+        return stateLayout;
     }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initData();
+    }
+
+    protected abstract void initData();
 
     protected abstract void initView();
 
@@ -49,4 +67,19 @@ public abstract class BaseFramgment extends Fragment {
 
 
     protected abstract void onMore();
+
+
+    ErrorClickListener listener = new ErrorClickListener() {
+        @Override
+        public void callback() {
+            stateLayout.setStatus(PageStateLayout.STATE_LOADING);
+            initData();
+        }
+    };
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }

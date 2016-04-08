@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.xmi.store.R;
+import com.xmi.store.callback.ErrorClickListener;
+import com.xmi.store.util.UIUtils;
 
 /**
  * User: xiucui.yu
@@ -15,7 +17,10 @@ import com.xmi.store.R;
  * FIXME
  */
 public class PageStateLayout extends FrameLayout {
-
+    /**
+     * 点击error 回调
+     */
+    private ErrorClickListener listener;
     /**
      * 未知状态
      */
@@ -76,6 +81,78 @@ public class PageStateLayout extends FrameLayout {
         if (mEmptyView != null) {
             addView(mEmptyView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         }
+
+        showPage();
+    }
+
+    private void showPage() {
+        UIUtils.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                updatePage();
+            }
+        });
+    }
+
+    public void setStatus(int status) {
+        this.mState = status;
+        updatePage();
+    }
+
+    private void updatePage() {
+        if (mLoadingView != null) {
+            mLoadingView.setVisibility(mState == STATE_LOADING ? View.VISIBLE : View.INVISIBLE);
+        }
+        if (mErrorView != null) {
+            mErrorView.setVisibility(mState == STATE_ERROR ? View.VISIBLE : View.INVISIBLE);
+        }
+
+        if (mEmptyView != null) {
+            mEmptyView.setVisibility(mState == STATE_EMPTY ? View.VISIBLE : View.INVISIBLE);
+        }
+
+        if (mSucceedView != null) {
+            mSucceedView.setVisibility(mState == STATE_SUCCEED ? View.VISIBLE : View.INVISIBLE);
+        }
+
+    }
+
+    public void setContextView(View view) {
+        if (mSucceedView != null) {
+            removeView(mSucceedView);
+        }
+        mSucceedView = view;
+        mSucceedView.setVisibility(View.GONE);
+        addView(mSucceedView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+    }
+
+    public void setLoadingView(View view) {
+        if (mLoadingView != null) {
+            removeView(mLoadingView);
+        }
+        mLoadingView = view;
+        mLoadingView.setVisibility(View.GONE);
+        addView(mLoadingView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+    }
+
+
+    public void setErrorView(View view) {
+        if (mErrorView != null) {
+            removeView(mErrorView);
+        }
+        mErrorView = view;
+        mErrorView.setVisibility(View.GONE);
+        addView(mErrorView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+    }
+
+    public void setEmptyView(View view) {
+        if (mEmptyView != null) {
+            removeView(mEmptyView);
+        }
+        mEmptyView = view;
+        mEmptyView.setVisibility(View.GONE);
+        addView(mEmptyView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        mEmptyView.setOnClickListener(clickListener);
     }
 
 
@@ -86,6 +163,7 @@ public class PageStateLayout extends FrameLayout {
 
     public View initErrorView() {
         mErrorView = View.inflate(mContext, R.layout.loading_page_error, null);
+        mErrorView.setOnClickListener(clickListener);
         return mErrorView;
     }
 
@@ -94,5 +172,18 @@ public class PageStateLayout extends FrameLayout {
         return mEmptyView;
     }
 
+    public void setErrorClickListener(ErrorClickListener listener) {
+        this.listener = listener;
+    }
+
+
+    private OnClickListener clickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (listener != null) {
+                listener.callback();
+            }
+        }
+    };
 
 }
