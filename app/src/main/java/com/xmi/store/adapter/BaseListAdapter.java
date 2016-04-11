@@ -19,7 +19,7 @@ import java.util.List;
  * Time: 14:56
  * FIXME
  * <p>
- * de:加载更多特殊条目
+ * de:
  */
 public abstract class BaseListAdapter<T> extends BaseAdapter {
 
@@ -94,7 +94,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        //最后一个item
+        //锟斤拷锟揭伙拷锟絠tem
         if (getCount() - 1 == position) {
             return TYPE_LOAD_MORE;
         } else {
