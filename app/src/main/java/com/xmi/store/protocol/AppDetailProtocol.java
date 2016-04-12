@@ -1,6 +1,7 @@
 package com.xmi.store.protocol;
 
 import com.google.gson.Gson;
+import com.squareup.okhttp.Callback;
 import com.xmi.store.moudle.AppInfo;
 import com.xmi.store.moudle.HomeTabBean;
 import com.xmi.store.net.HttpClient;
@@ -15,8 +16,8 @@ import com.xmi.store.protocol.base.BaseProtocol;
 public class AppDetailProtocol extends BaseProtocol<AppInfo> {
 
 
-    public AppInfo homeTabUrl(RequestParams requestParams) {
-        return torequest(getUrl(), HttpClient.METHOD_GET, requestParams, AppInfo.class);
+    public void getAppDetail(RequestParams requestParams, Callback mCallback) {
+         torequest(getUrl(), HttpClient.METHOD_GET, requestParams,mCallback);
 
     }
 

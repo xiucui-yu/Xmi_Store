@@ -37,7 +37,7 @@ public class RequestParams {
         return requestParams;
     }
 
-    //Ìí¼Ó¹«ÓÃµÄ²ÎÊı
+    //æ·»åŠ å…¬ç”¨çš„å‚æ•°
 
     public void addSign(){
 

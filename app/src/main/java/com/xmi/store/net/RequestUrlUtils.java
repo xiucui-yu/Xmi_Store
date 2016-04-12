@@ -17,4 +17,8 @@ public class RequestUrlUtils {
     public static String getCurrentUrl() {
         return isDebug ? PREURL : FORMALURL;
     }
+
+    public static String getImageUrl(String path){
+        return getCurrentUrl() + "image?name="+ path;
+    }
 }

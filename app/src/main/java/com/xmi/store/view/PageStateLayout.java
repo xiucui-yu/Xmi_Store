@@ -42,7 +42,7 @@ public class PageStateLayout extends FrameLayout {
      */
     public static final int STATE_SUCCEED = 4;
 
-    private int mState = STATE_UNKNOW;
+    private int mState = STATE_LOADING;
 
     private View mLoadingView;
     private View mErrorView;
@@ -106,11 +106,9 @@ public class PageStateLayout extends FrameLayout {
         if (mErrorView != null) {
             mErrorView.setVisibility(mState == STATE_ERROR ? View.VISIBLE : View.INVISIBLE);
         }
-
         if (mEmptyView != null) {
             mEmptyView.setVisibility(mState == STATE_EMPTY ? View.VISIBLE : View.INVISIBLE);
         }
-
         if (mSucceedView != null) {
             mSucceedView.setVisibility(mState == STATE_SUCCEED ? View.VISIBLE : View.INVISIBLE);
         }

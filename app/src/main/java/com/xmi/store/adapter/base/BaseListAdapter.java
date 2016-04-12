@@ -1,4 +1,4 @@
-package com.xmi.store.adapter;
+package com.xmi.store.adapter.base;
 
 import android.content.Context;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.xmi.store.R;
+import com.xmi.store.fragment.base.BaseFramgment;
 import com.xmi.store.holder.base.BaseHolder;
 import com.xmi.store.holder.MoreHolder;
 
@@ -25,7 +26,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 
     protected List<T> mData;
 
-    protected Context mContext;
+    protected BaseFramgment mFragment;
 
     private BaseHolder mMoreHolder;
 
@@ -34,8 +35,8 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
     protected static final int TYPE_LOAD_MORE = 1;
 
 
-    public BaseListAdapter(Context context, List<T> mData) {
-        mContext = context;
+    public BaseListAdapter(BaseFramgment mFragment, List<T> mData) {
+        this.mFragment=mFragment;
         mData = new ArrayList<T>();
         if (mData != null) {
             mData.addAll(mData);
@@ -68,7 +69,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
     @Override
     public int getCount() {
         if (mData != null && mData.size() > 0) {
-            return mData.size() + 1;
+            return mData.size();
         }
         return 0;
     }
@@ -86,7 +87,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
         return position;
     }
 
-
+/*
     @Override
     public int getViewTypeCount() {
         return super.getViewTypeCount() + 1;
@@ -95,44 +96,44 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
     @Override
     public int getItemViewType(int position) {
         //���һ��item
-        if (getCount() - 1 == position) {
+        *//*if (getCount() - 1 == position) {
             return TYPE_LOAD_MORE;
-        } else {
+        } else {*//*
             return getItemType(position);
-        }
+       // }
     }
 
     protected int getItemType(int position) {
         return TYPE_ITEM;
-    }
+    }*/
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        BaseHolder mHolder;
-        if (getItemViewType(position) == TYPE_LOAD_MORE) {
+        BaseHolder mHolder = null;
+      /*  if (getItemViewType(position) == TYPE_LOAD_MORE) {
             mHolder = getMoreHolder();
-        }
+        }*/
         if (convertView == null) {
-            mHolder = getHolder();
+            mHolder = getHolder(convertView);
         } else {
-            mHolder = (BaseHolder) convertView.getTag(R.id.tag_holder);
+            mHolder = (BaseHolder) convertView.getTag();
         }
         mHolder.setDate(getItem(position));
 
-        return convertView;
+        return mHolder.getConvertView();
     }
 
     public BaseHolder<T> getMoreHolder() {
         if (mMoreHolder == null) {
-            mMoreHolder = new MoreHolder(mContext);
+            mMoreHolder = new MoreHolder(mFragment);
         }
         return mMoreHolder;
 
     }
 
 
-    protected abstract BaseHolder<T> getHolder();
+    protected abstract BaseHolder<T> getHolder(View contextView);
 
 
 

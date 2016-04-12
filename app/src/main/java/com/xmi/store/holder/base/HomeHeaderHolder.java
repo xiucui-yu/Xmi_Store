@@ -1,28 +1,24 @@
-package com.xmi.store.holder;
+package com.xmi.store.holder.base;
 
-import android.app.Fragment;
-import android.content.Context;
 import android.view.View;
 
 import com.xmi.store.fragment.base.BaseFramgment;
-import com.xmi.store.holder.base.BaseHolder;
 
 /**
  * User: xiucui.yu
- * Date: 2016-04-08
- * Time: 15:26
+ * Date: 2016-04-12
+ * Time: 17:53
  * FIXME
  */
-public class MoreHolder extends BaseHolder {
+public class HomeHeaderHolder extends BaseHolder {
 
-
-    public MoreHolder(BaseFramgment mFragment) {
+    public HomeHeaderHolder(BaseFramgment mFragment) {
         super(mFragment);
-
     }
 
     @Override
     protected View initView() {
+
         return null;
     }
 

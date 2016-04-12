@@ -29,7 +29,8 @@ public abstract class BaseFramgment extends Fragment {
 
     protected View mMainView;
 
-    protected PageStateLayout stateLayout;
+
+    private PageStateLayout stateLayout;
 
     @Nullable
     @Override
@@ -38,7 +39,7 @@ public abstract class BaseFramgment extends Fragment {
         ButterKnife.bind(this, mMainView);
         stateLayout = new PageStateLayout(getActivity());
         stateLayout.setContextView(mMainView);
-        stateLayout.setStatus(PageStateLayout.STATE_EMPTY);
+        stateLayout.setStatus(PageStateLayout.STATE_LOADING);
         stateLayout.setErrorClickListener(listener);
         swipeRefresh.setColorSchemeResources(R.color.theme_orange);
         swipeRefresh.setSize(SwipeRefreshLayout.LARGE);
@@ -76,6 +77,11 @@ public abstract class BaseFramgment extends Fragment {
             initData();
         }
     };
+
+    public void setStatus(int status) {
+        stateLayout.setStatus(status);
+
+    }
 
     @Override
     public void onDestroyView() {

@@ -1,5 +1,6 @@
 package com.xmi.store.protocol;
 
+import com.squareup.okhttp.Callback;
 import com.xmi.store.moudle.AppTabBean;
 import com.xmi.store.moudle.HomeTabBean;
 import com.xmi.store.net.HttpClient;
@@ -13,9 +14,8 @@ import com.xmi.store.protocol.base.BaseProtocol;
  */
 public class AppTabProtocol extends BaseProtocol<AppTabBean> {
 
-    public AppTabBean homeTabUrl(RequestParams requestParams) {
-        return torequest(getUrl(), HttpClient.METHOD_GET, requestParams, AppTabBean.class);
-
+    public void getAppTab(RequestParams requestParams, Callback mCallback) {
+        torequest(getUrl(), HttpClient.METHOD_GET, requestParams,mCallback);
     }
 
     private String getUrl() {

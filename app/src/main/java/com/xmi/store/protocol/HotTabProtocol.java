@@ -1,5 +1,7 @@
 package com.xmi.store.protocol;
 
+import com.squareup.okhttp.Callback;
+import com.xmi.store.moudle.GameTabBean;
 import com.xmi.store.moudle.HomeTabBean;
 import com.xmi.store.moudle.HotTabBean;
 import com.xmi.store.net.HttpClient;
@@ -19,10 +21,11 @@ import java.util.List;
  * Created by Ljb on 2015/11/12.
  */
 public class HotTabProtocol  extends BaseProtocol<HotTabBean> {
-    public HotTabBean homeTabUrl(RequestParams requestParams) {
-        return torequest(getUrl(), HttpClient.METHOD_GET, requestParams, HotTabBean.class);
 
+    public void getHot(RequestParams requestParams, Callback mCallback) {
+        torequest(getUrl(), HttpClient.METHOD_GET, requestParams, mCallback);
     }
+
 
     private String getUrl() {
         return RequestUrlUtils.getCurrentUrl() + "hot";

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 
 import com.xmi.store.R;
+import com.xmi.store.fragment.base.BaseFramgment;
 
 /**
  * User: xiucui.yu
@@ -19,11 +20,13 @@ public abstract class BaseHolder<T> {
 
     protected T data;
 
+    protected BaseFramgment mFragment;
 
-    public BaseHolder(Context mContext) {
-        context = mContext;
+
+    public BaseHolder(BaseFramgment mFragment) {
+        this.mFragment = mFragment;
         convertView = initView();
-        convertView.setTag(R.id.tag_holder, this);
+        convertView.setTag(this);
     }
 
     public void setDate(T itemBean) {
@@ -32,7 +35,7 @@ public abstract class BaseHolder<T> {
     }
 
     /**
-     * 初始化布局
+     * 鍒濆鍖栧竷灞�
      *
      * @return
      */
@@ -41,7 +44,7 @@ public abstract class BaseHolder<T> {
 
 
     /**
-     * 子类实现数据相关操作
+     * 瀛愮被瀹炵幇鏁版嵁鐩稿叧鎿嶄綔
      */
     protected abstract void initData(T data);
 

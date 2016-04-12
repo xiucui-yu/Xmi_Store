@@ -15,6 +15,7 @@ import com.xmi.store.net.sign.SignatureInterface;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.FileNameMap;
 import java.net.HttpURLConnection;
 import java.util.Map;
@@ -89,6 +90,7 @@ public class HttpClient {
         // Execute the request and retrieve the response.
 
         mOkHttpClien.newCall(request).enqueue(mCall);
+
     }
 
 
@@ -100,11 +102,11 @@ public class HttpClient {
         if (hasSign) {
             signature.signatuer(url, method, requestParams);
         }
-        //get 请求
+        //get 璇锋眰
         if (method.equalsIgnoreCase(METHOD_GET)) {
             build.url(initGetParams(url, requestParams)).get();
         }
-        //post 请求
+        //post 璇锋眰
         else if (method.equalsIgnoreCase(METHOD_POST)) {
             build.url(url).post(initPostBody(requestParams));
         }
@@ -155,13 +157,13 @@ public class HttpClient {
                 Object value = entry.getValue();
                 if (value instanceof File) {
                     File file = (File) value;
-                    //获取文件类型  /*MediaType.parse("image/png")*/
+                    //鑾峰彇鏂囦欢绫诲瀷  /*MediaType.parse("image/png")*/
                     FileNameMap fileNameMap = HttpURLConnection.getFileNameMap();
                     String contentTypeFor = fileNameMap.getContentTypeFor(file.getAbsolutePath());
                     formBody.addFormDataPart(key, file.getName(), RequestBody.create(MediaType.parse(contentTypeFor), file));
 
                 } else {
-                    formBody.addFormDataPart(key, (String) value);
+                    formBody.addFormDataPart(key, value.toString());
                 }
 
             }

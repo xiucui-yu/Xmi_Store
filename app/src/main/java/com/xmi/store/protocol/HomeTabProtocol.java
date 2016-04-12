@@ -15,9 +15,8 @@ import com.xmi.store.protocol.base.BaseProtocol;
  * FIXME
  */
 public class HomeTabProtocol extends BaseProtocol<HomeTabBean> {
-    public HomeTabBean homeTabUrl(RequestParams requestParams, Callback mCallback) {
-        torequest(getUrl(), HttpClient.METHOD_GET, requestParams, HomeTabBean.class,mCallback);
-        return null;
+    public void homeTabUrl(RequestParams requestParams, Callback mCallback) {
+        torequest(getUrl(), HttpClient.METHOD_GET, requestParams,mCallback);
     }
 
     private String getUrl() {

@@ -26,8 +26,8 @@ public class BaseProtocol<T> {
         mGson = new Gson();
     }
 
-    public void torequest(String url, final String method, final RequestParams params, final Class<T> clazz, Callback mCallBack) {
-        Request requset = HttpClient.getClient().getRequset(url, method, params, true);
+    public void torequest(String url, final String method, final RequestParams params, Callback mCallBack) {
+        Request requset = HttpClient.getClient().getRequset(url, method, params, false);
         HttpClient.getClient().enqueue(requset, mCallBack);
         // return setDate(execute2String, clazz);
     }
@@ -37,7 +37,7 @@ public class BaseProtocol<T> {
             Log.e("xiaoxiao", "respons null !!!");
         }
         if (clazz != null) {
-            return json2pojo(execute2String, clazz, true);
+            return json2pojo(execute2String, clazz, false);
         }
         return null;
     }

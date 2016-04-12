@@ -1,5 +1,7 @@
 package com.xmi.store.protocol;
 
+import com.squareup.okhttp.Callback;
+import com.xmi.store.moudle.AppTabBean;
 import com.xmi.store.moudle.ClassifyInfo;
 import com.xmi.store.moudle.HomeTabBean;
 import com.xmi.store.net.HttpClient;
@@ -13,9 +15,9 @@ import com.xmi.store.protocol.base.BaseProtocol;
  */
 public class ClassifyTabProtocol extends BaseProtocol<ClassifyInfo> {
 
-    public ClassifyInfo homeTabUrl(RequestParams requestParams) {
-        return torequest(getUrl(), HttpClient.METHOD_GET, requestParams, ClassifyInfo.class);
 
+    public void getClassify(RequestParams requestParams, Callback mCallback) {
+        torequest(getUrl(), HttpClient.METHOD_GET, requestParams,mCallback);
     }
 
     private String getUrl() {
