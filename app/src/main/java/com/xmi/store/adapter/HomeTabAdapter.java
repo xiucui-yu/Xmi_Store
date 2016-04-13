@@ -26,7 +26,7 @@ public class HomeTabAdapter extends BaseListAdapter<AppInfo> {
     }
 
     @Override
-    protected BaseHolder getHolder(View view) {
-        return new HomeTabHolder(mFragment,view);
+    protected BaseHolder getHolder() {
+        return new HomeTabHolder(mFragment);
     }
 }

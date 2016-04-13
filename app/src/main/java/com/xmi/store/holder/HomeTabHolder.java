@@ -33,27 +33,26 @@ public class HomeTabHolder extends BaseHolder<AppInfo> {
     TextView itemSize;
     TextView itemBottom;
 
-    private View mView;
 
-    public HomeTabHolder(BaseFramgment mFragment, View view) {
+    public HomeTabHolder(BaseFramgment mFragment) {
         super(mFragment);
-        mView = view;
     }
 
 
     @Override
     protected View initView() {
-        mView = View.inflate(mFragment.getActivity(), R.layout.holder_list_item, null);
-        itemIcon = (ImageView) mView.findViewById(R.id.item_icon);
-        itemTitle = (TextView) mView.findViewById(R.id.item_title);
-        itemSize = (TextView) mView.findViewById(R.id.item_size);
-        itemBottom = (TextView) mView.findViewById(R.id.item_bottom);
-        itemRating = (RatingBar) mView.findViewById(R.id.item_rating);
-        return mView;
+        convertView = View.inflate(mFragment.getActivity(), R.layout.holder_list_item, null);
+        itemIcon = (ImageView) convertView.findViewById(R.id.item_icon);
+        itemTitle = (TextView) convertView.findViewById(R.id.item_title);
+        itemSize = (TextView) convertView.findViewById(R.id.item_size);
+        itemBottom = (TextView) convertView.findViewById(R.id.item_bottom);
+        itemRating = (RatingBar) convertView.findViewById(R.id.item_rating);
+        return convertView;
     }
 
     @Override
     protected void initData(AppInfo data) {
+
         itemTitle.setText(data.getName());
         Glide.with(mFragment).load(RequestUrlUtils.getImageUrl(data.getIconUrl())).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).into(itemIcon);
         itemSize.setText(XgoFileUtils.getFormatSize(data.getSize()));

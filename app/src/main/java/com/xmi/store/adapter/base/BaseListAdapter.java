@@ -36,7 +36,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 
 
     public BaseListAdapter(BaseFramgment mFragment, List<T> mData) {
-        this.mFragment=mFragment;
+        this.mFragment = mFragment;
         mData = new ArrayList<T>();
         if (mData != null) {
             mData.addAll(mData);
@@ -115,7 +115,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
             mHolder = getMoreHolder();
         }*/
         if (convertView == null) {
-            mHolder = getHolder(convertView);
+            mHolder = getHolder();
         } else {
             mHolder = (BaseHolder) convertView.getTag();
         }
@@ -133,10 +133,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
     }
 
 
-    protected abstract BaseHolder<T> getHolder(View contextView);
-
-
-
+    protected abstract BaseHolder<T> getHolder();
 
 
 }

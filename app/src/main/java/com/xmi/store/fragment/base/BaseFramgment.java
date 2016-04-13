@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.xmi.store.R;
 import com.xmi.store.callback.ErrorClickListener;
-import com.xmi.store.fragment.HomeTabFragment;
 import com.xmi.store.view.PageStateLayout;
 
 import butterknife.Bind;
@@ -35,7 +34,7 @@ public abstract class BaseFramgment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        initView();
+        initViewId();
         ButterKnife.bind(this, mMainView);
         stateLayout = new PageStateLayout(getActivity());
         stateLayout.setContextView(mMainView);
@@ -49,7 +48,7 @@ public abstract class BaseFramgment extends Fragment {
                 BaseFramgment.this.onRefresh();
             }
         });
-
+        initAddition();
         return stateLayout;
     }
 
@@ -61,7 +60,9 @@ public abstract class BaseFramgment extends Fragment {
 
     protected abstract void initData();
 
-    protected abstract void initView();
+    protected abstract void initViewId();
+
+    protected abstract void initAddition();
 
 
     protected abstract void onRefresh();

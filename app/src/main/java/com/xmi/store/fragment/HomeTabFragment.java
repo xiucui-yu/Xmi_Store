@@ -11,6 +11,7 @@ import com.squareup.okhttp.Response;
 import com.xmi.store.R;
 import com.xmi.store.adapter.HomeTabAdapter;
 import com.xmi.store.fragment.base.BaseFramgment;
+import com.xmi.store.holder.HomeHeaderHolder;
 import com.xmi.store.moudle.HomeTabBean;
 import com.xmi.store.net.RequestParams;
 import com.xmi.store.protocol.HomeTabProtocol;
@@ -41,25 +42,22 @@ public class HomeTabFragment extends BaseFramgment {
 
     private RequestParams mRequestParams = new RequestParams();
 
+    private HomeTabBean homeTabBean;
 
     @Override
     protected void initData() {
-
-        adapter = new HomeTabAdapter(this, null);
-        mlistview.setAdapter(adapter);
         mRequestParams.putParams("index", 0);
         mProtocol.homeTabUrl(mRequestParams, new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 Log.e("xiaoxiao", e.toString());
                 setStatus(PageStateLayout.STATE_ERROR);
-
             }
 
             @Override
             public void onResponse(final Response response) throws IOException {
                 SystemClock.sleep(1500);
-                final HomeTabBean homeTabBean = mProtocol.setDate(response.body().string(), HomeTabBean.class);
+                homeTabBean = mProtocol.setDate(response.body().string(), HomeTabBean.class);
                 UIUtils.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -68,27 +66,30 @@ public class HomeTabFragment extends BaseFramgment {
                         } else {
                             setStatus(PageStateLayout.STATE_SUCCEED);
                             adapter.setData(homeTabBean.getList());
+                            homeHeaderHolder.setDate(homeTabBean.getPicture());
                         }
 
                     }
                 });
-
-
             }
         });
     }
 
+    private HomeHeaderHolder homeHeaderHolder;
+
     @Override
-    protected void initView() {
+    protected void initViewId() {
         mMainView = View.inflate(getActivity(), R.layout.fragment_home_layout, null);
-
-
-
-
-        mlistview.addHeaderView();
-
     }
 
+    @Override
+    protected void initAddition() {
+        adapter = new HomeTabAdapter(this, null);
+        mlistview.setAdapter(adapter);
+
+        homeHeaderHolder = new HomeHeaderHolder(this);
+        mlistview.addHeaderView(homeHeaderHolder.getConvertView());
+    }
     @Override
     protected void onRefresh() {
 

@@ -47,8 +47,13 @@ public class AppTabFragment extends BaseFramgment {
 
 
     @Override
-    protected void initView() {
+    protected void initViewId() {
         mMainView = View.inflate(getActivity(), R.layout.fragment_home_layout, null);
+
+    }
+
+    @Override
+    protected void initAddition() {
 
     }
 

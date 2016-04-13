@@ -45,8 +45,20 @@ public class HomeHeaderAdapter extends PagerAdapter {
         }
     }
 
+    public void setData(List<TopPicInfo> lists) {
+        if (mDData == null) {
+            mDData = new LinkedList<TopPicInfo>();
+        }
+        mDData.clear();
+        if (lists != null) {
+            mDData.addAll(lists);
+        }
+        notifyDataSetChanged();
 
-    /// »ñÈ¡Òª»¬¶¯µÄ¿Ø¼şµÄÊıÁ¿£¬ÔÚÕâÀïÎÒÃÇÒÔ»¬¶¯µÄ¹ã¸æÀ¸ÎªÀı£¬ÄÇÃ´ÕâÀï¾ÍÓ¦¸ÃÊÇÕ¹Ê¾µÄ¹ã¸æÍ¼Æ¬µÄImageViewÊıÁ¿
+    }
+
+
+    /// è·å–è¦æ»‘åŠ¨çš„æ§ä»¶çš„æ•°é‡ï¼Œåœ¨è¿™é‡Œæˆ‘ä»¬ä»¥æ»‘åŠ¨çš„å¹¿å‘Šæ ä¸ºä¾‹ï¼Œé‚£ä¹ˆè¿™é‡Œå°±åº”è¯¥æ˜¯å±•ç¤ºçš„å¹¿å‘Šå›¾ç‰‡çš„ImageViewæ•°é‡
 
     @Override
 
@@ -57,7 +69,7 @@ public class HomeHeaderAdapter extends PagerAdapter {
     }
 
 
-// À´ÅĞ¶ÏÏÔÊ¾µÄÊÇ·ñÊÇÍ¬Ò»ÕÅÍ¼Æ¬£¬ÕâÀïÎÒÃÇ½«Á½¸ö²ÎÊıÏà±È½Ï·µ»Ø¼´¿É
+// æ¥åˆ¤æ–­æ˜¾ç¤ºçš„æ˜¯å¦æ˜¯åŒä¸€å¼ å›¾ç‰‡ï¼Œè¿™é‡Œæˆ‘ä»¬å°†ä¸¤ä¸ªå‚æ•°ç›¸æ¯”è¾ƒè¿”å›å³å¯
 
     @Override
 
@@ -68,7 +80,7 @@ public class HomeHeaderAdapter extends PagerAdapter {
     }
 
 
-// PagerAdapterÖ»»º´æÈıÕÅÒªÏÔÊ¾µÄÍ¼Æ¬£¬Èç¹û»¬¶¯µÄÍ¼Æ¬³¬³öÁË»º´æµÄ·¶Î§£¬¾Í»áµ÷ÓÃÕâ¸ö·½·¨£¬½«Í¼Æ¬Ïú»Ù
+// PagerAdapteråªç¼“å­˜ä¸‰å¼ è¦æ˜¾ç¤ºçš„å›¾ç‰‡ï¼Œå¦‚æœæ»‘åŠ¨çš„å›¾ç‰‡è¶…å‡ºäº†ç¼“å­˜çš„èŒƒå›´ï¼Œå°±ä¼šè°ƒç”¨è¿™ä¸ªæ–¹æ³•ï¼Œå°†å›¾ç‰‡é”€æ¯
 
     @Override
 
@@ -81,7 +93,7 @@ public class HomeHeaderAdapter extends PagerAdapter {
     }
 
 
-// µ±ÒªÏÔÊ¾µÄÍ¼Æ¬¿ÉÒÔ½øĞĞ»º´æµÄÊ±ºò£¬»áµ÷ÓÃÕâ¸ö·½·¨½øĞĞÏÔÊ¾Í¼Æ¬µÄ³õÊ¼»¯£¬ÎÒÃÇ½«ÒªÏÔÊ¾µÄImageView¼ÓÈëµ½ViewGroupÖĞ£¬È»ºó×÷Îª·µ»ØÖµ·µ»Ø¼´¿É
+// å½“è¦æ˜¾ç¤ºçš„å›¾ç‰‡å¯ä»¥è¿›è¡Œç¼“å­˜çš„æ—¶å€™ï¼Œä¼šè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œæ˜¾ç¤ºå›¾ç‰‡çš„åˆå§‹åŒ–ï¼Œæˆ‘ä»¬å°†è¦æ˜¾ç¤ºçš„ImageViewåŠ å…¥åˆ°ViewGroupä¸­ï¼Œç„¶åä½œä¸ºè¿”å›å€¼è¿”å›å³å¯
 
     @Override
 
