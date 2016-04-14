@@ -17,11 +17,11 @@ public class AppDetailProtocol extends BaseProtocol<AppInfo> {
 
 
     public void getAppDetail(RequestParams requestParams, Callback mCallback) {
-         torequest(getUrl(), HttpClient.METHOD_GET, requestParams,mCallback);
+        torequest(getUrl(), HttpClient.METHOD_GET, requestParams, mCallback);
 
     }
 
     protected String getUrl() {
-        return RequestUrlUtils.getCurrentUrl()+"detail";
+        return RequestUrlUtils.getCurrentUrl() + "detail";
     }
 }

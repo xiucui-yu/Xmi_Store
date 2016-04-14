@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
  * Time: 13:54
  * FIXME
  */
-public class HomeTabHolder extends BaseHolder<AppInfo> {
+public class AppDetailHolder extends BaseHolder<AppInfo> {
     ImageView itemIcon;
     TextView itemTitle;
     RatingBar itemRating;
@@ -34,7 +34,7 @@ public class HomeTabHolder extends BaseHolder<AppInfo> {
     TextView itemBottom;
 
 
-    public HomeTabHolder(BaseFramgment mFragment) {
+    public AppDetailHolder(BaseFramgment mFragment) {
         super(mFragment);
     }
 

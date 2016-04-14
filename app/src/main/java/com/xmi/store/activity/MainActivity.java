@@ -89,12 +89,11 @@ public class MainActivity extends BaseFragmentActivity {
         } else {
             long twoOnClick = System.currentTimeMillis();
             long porr = twoOnClick - oneOnClick;
-            if (porr > 5000) {
+            if (porr < 5000) {
                 System.exit(0);
             } else {
                 oneOnClick = System.currentTimeMillis();
                 Toast.makeText(this, "再按一次即退出程序", Toast.LENGTH_LONG).show();
-
             }
         }
     }

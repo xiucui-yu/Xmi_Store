@@ -9,9 +9,9 @@ public class AppTabBean {
 
     List<AppInfo> list;
 
-    public AppTabBean(List<AppInfo> list) {
+    /*public AppTabBean(List<AppInfo> list) {
         this.list = list;
-    }
+    }*/
 
     public List<AppInfo> getList() {
         return list;

@@ -5,6 +5,7 @@ import com.xmi.store.fragment.base.BaseFramgment;
 import com.xmi.store.holder.AppDetailHolder;
 import com.xmi.store.holder.base.BaseHolder;
 import com.xmi.store.moudle.AppInfo;
+import com.xmi.store.moudle.AppTabBean;
 
 import java.util.List;
 
@@ -14,11 +15,10 @@ import java.util.List;
  * Time: 13:51
  * FIXME
  */
-public class HomeTabAdapter extends BaseListAdapter<AppInfo> {
-    public HomeTabAdapter(BaseFramgment mFragment, List<AppInfo> mData) {
+public class GameAndAppTabAdapter extends BaseListAdapter<AppInfo> {
+    public GameAndAppTabAdapter(BaseFramgment mFragment, List<AppInfo> mData) {
         super(mFragment, mData);
         this.mFragment = mFragment;
-
     }
 
     @Override

@@ -19,6 +19,7 @@ import com.xmi.store.moudle.TopPicInfo;
 import com.xmi.store.net.RequestUrlUtils;
 import com.xmi.store.util.UIUtils;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import butterknife.Bind;
@@ -49,7 +50,7 @@ public class HomeHeaderHolder extends BaseHolder<List<TopPicInfo>> {
         convertView = View.inflate(mFragment.getActivity(), R.layout.holder_home_header_item, null);
         viewPager = (ViewPager) convertView.findViewById(R.id.view_pager);
         eventTitle = (TextView) convertView.findViewById(R.id.event_title);
-        convertView.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, UIUtils.sp2px(140)));
+       // convertView.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, UIUtils.sp2px(140)));
         llPointParent = (LinearLayout) convertView.findViewById(R.id.ll_point_parent);
         initScoll();
         return convertView;
@@ -57,7 +58,12 @@ public class HomeHeaderHolder extends BaseHolder<List<TopPicInfo>> {
 
     private void initScoll() {
 
-
+        try {
+            Field mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

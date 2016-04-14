@@ -90,6 +90,7 @@ public class HomeTabFragment extends BaseFramgment {
         homeHeaderHolder = new HomeHeaderHolder(this);
         mlistview.addHeaderView(homeHeaderHolder.getConvertView());
     }
+
     @Override
     protected void onRefresh() {
 

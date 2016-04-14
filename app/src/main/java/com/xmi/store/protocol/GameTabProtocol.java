@@ -19,6 +19,6 @@ public class GameTabProtocol extends BaseProtocol<GameTabBean> {
     }
 
     private String getUrl() {
-        return RequestUrlUtils.getCurrentUrl() + "home";
+        return RequestUrlUtils.getCurrentUrl() + "game";
     }
 }
