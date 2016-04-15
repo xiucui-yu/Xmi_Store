@@ -36,6 +36,7 @@ public class BaseProtocol<T> {
         if (TextUtils.isEmpty(execute2String)) {
             Log.e("xiaoxiao", "respons null !!!");
         }
+
         if (clazz != null) {
             return json2pojo(execute2String, clazz, false);
         }
@@ -46,7 +47,7 @@ public class BaseProtocol<T> {
         if (TextUtils.isEmpty(execute2String)) {
             return null;
         }
-        //½«¶¥²ãµÄÏÈ½âÎö³öÀ´  re || msg
+        //å°†é¡¶å±‚çš„å…ˆè§£æå‡ºæ¥  re || msg
         if (b) {
             execute2String = getNorData(execute2String);
         }
@@ -55,7 +56,7 @@ public class BaseProtocol<T> {
     }
 
 
-    //½«¶¥²ãµÄÏÈ½âÎö³öÀ´  re || msg
+    //å°†é¡¶å±‚çš„å…ˆè§£æå‡ºæ¥  re || msg
     private String getNorData(String execute2String) {
         String resultJson = null;
         JSONObject mJsonObject = new JSONObject();

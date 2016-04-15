@@ -15,6 +15,7 @@ import com.xmi.store.protocol.base.BaseProtocol;
 public class AppTabProtocol extends BaseProtocol<AppTabBean> {
 
     public void getAppTab(RequestParams requestParams, Callback mCallback) {
+
         torequest(getUrl(), HttpClient.METHOD_GET, requestParams,mCallback);
     }
 

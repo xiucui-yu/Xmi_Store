@@ -24,8 +24,6 @@ public class XmiApp extends Application {
         tid=android.os.Process.myTid();
         //初始化设备信息
         AppInfo.getInstance(applicaion);
-
-
     }
 
     public static XmiApp getApplicaion() {

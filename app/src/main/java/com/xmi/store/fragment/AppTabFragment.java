@@ -13,6 +13,7 @@ import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.xmi.store.R;
+import com.xmi.store.adapter.AppTabAdapter;
 import com.xmi.store.adapter.HomeTabAdapter;
 import com.xmi.store.fragment.base.BaseFramgment;
 import com.xmi.store.holder.HomeHeaderHolder;
@@ -45,7 +46,7 @@ public class AppTabFragment extends BaseFramgment {
 
     private AppTabBean appTabBean;
 
-    private HomeTabAdapter homeTabAdapter;
+    private AppTabAdapter homeTabAdapter;
 
     private RequestParams mRequestParams = new RequestParams();
     private AppTabProtocol mProtocol = new AppTabProtocol();
@@ -63,6 +64,7 @@ public class AppTabFragment extends BaseFramgment {
             @Override
             public void onResponse(final Response response) throws IOException {
                 SystemClock.sleep(1500);
+                Log.e("xiaoxiao",response.body().string());
                 appTabBean = mProtocol.setDate(response.body().string(), AppTabBean.class);
                 UIUtils.runOnUiThread(new Runnable() {
                     @Override
@@ -86,7 +88,7 @@ public class AppTabFragment extends BaseFramgment {
 
     @Override
     protected void initAddition() {
-        homeTabAdapter = new HomeTabAdapter(this, null);
+        homeTabAdapter = new AppTabAdapter(this, null);
         mlistview.setAdapter(homeTabAdapter);
 
     }

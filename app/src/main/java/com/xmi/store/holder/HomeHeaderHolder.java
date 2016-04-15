@@ -1,12 +1,15 @@
 package com.xmi.store.holder;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.animation.Interpolator;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -50,7 +53,7 @@ public class HomeHeaderHolder extends BaseHolder<List<TopPicInfo>> {
         convertView = View.inflate(mFragment.getActivity(), R.layout.holder_home_header_item, null);
         viewPager = (ViewPager) convertView.findViewById(R.id.view_pager);
         eventTitle = (TextView) convertView.findViewById(R.id.event_title);
-       // convertView.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, UIUtils.sp2px(140)));
+        // convertView.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, UIUtils.sp2px(140)));
         llPointParent = (LinearLayout) convertView.findViewById(R.id.ll_point_parent);
         initScoll();
         return convertView;
@@ -59,12 +62,53 @@ public class HomeHeaderHolder extends BaseHolder<List<TopPicInfo>> {
     private void initScoll() {
 
         try {
+            //反射机制   控制 viewpager滑动时间  为1000
             Field mScroller = ViewPager.class.getDeclaredField("mScroller");
             mScroller.setAccessible(true);
+            FixedSpeedScroller scroller = new FixedSpeedScroller(mFragment.getActivity());
+            mScroller.set(viewPager, scroller);
         } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
     }
+
+    class FixedSpeedScroller extends Scroller {
+        private int mDuration = 1000;
+
+        public FixedSpeedScroller(Context context) {
+            super(context);
+        }
+
+        public FixedSpeedScroller(Context context, Interpolator interpolator) {
+            super(context, interpolator);
+        }
+
+        @Override
+        public void startScroll(int startX, int startY, int dx, int dy,
+                                int duration) {
+            // Ignore received duration, use fixed one instead
+            super.startScroll(startX, startY, dx, dy, mDuration);
+        }
+
+        @Override
+        public void startScroll(int startX, int startY, int dx, int dy) {
+            // Ignore received duration, use fixed one instead
+            super.startScroll(startX, startY, dx, dy, mDuration);
+        }
+
+        public void setmDuration(int time) {
+            mDuration = time;
+        }
+
+        public int getmDuration() {
+            return mDuration;
+        }
+
+    }
+
+    ;
 
     @Override
     protected void initData(List<TopPicInfo> data) {
