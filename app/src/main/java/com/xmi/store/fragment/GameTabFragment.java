@@ -25,7 +25,13 @@ import com.xmi.store.protocol.GameTabProtocol;
 import com.xmi.store.util.UIUtils;
 import com.xmi.store.view.PageStateLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,7 +47,7 @@ public class GameTabFragment extends BaseFramgment {
     @Bind(R.id.mlistview)
     ListView mlistview;
 
-    private GameTabBean gameTabBean;
+    private GameTabBean gameTabBean=new GameTabBean();
 
     private HomeTabAdapter homeTabAdapter;
 
@@ -61,7 +67,27 @@ public class GameTabFragment extends BaseFramgment {
             @Override
             public void onResponse(final Response response) throws IOException {
                 SystemClock.sleep(1500);
-                gameTabBean = mProtocol.setDate(response.body().string(), GameTabBean.class);
+               // gameTabBean = mProtocol.setDate(response.body().string(), GameTabBean.class);
+                List<AppInfo> list = new ArrayList<>();
+                try {
+                    JSONArray jsonArray = new JSONArray(response.body().string());
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        int id = jsonObject.getInt("id");
+                        String name = jsonObject.getString("name");
+                        String packageName = jsonObject.getString("packageName");
+                        String iconUrl = jsonObject.getString("iconUrl");
+                        double stars =  jsonObject.getDouble("stars");
+                        int size =  jsonObject.getInt("size");
+                        String downloadUrl = jsonObject.getString("downloadUrl");
+                        String des = jsonObject.getString("des");
+                        list.add(new AppInfo(id,name,packageName,iconUrl,(float)stars,size,downloadUrl,des));
+
+                    }
+                    gameTabBean.setList(list);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 UIUtils.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

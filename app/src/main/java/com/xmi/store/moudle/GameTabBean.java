@@ -8,9 +8,6 @@ import java.util.List;
 public class GameTabBean {
 
     List<AppInfo> list;
-    public GameTabBean(List<AppInfo> list) {
-        this.list = list;
-    }
 
     public List<AppInfo> getList() {
         return list;

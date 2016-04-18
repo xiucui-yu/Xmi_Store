@@ -7,14 +7,6 @@ import java.util.List;
  */
 public class HotTabBean {
     private List<String> tabNames;
-
-    public HotTabBean() {
-    }
-
-    public HotTabBean(List<String> tabNames) {
-        this.tabNames = tabNames;
-    }
-
     public List<String> getTabNames() {
         return tabNames;
     }

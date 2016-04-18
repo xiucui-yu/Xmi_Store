@@ -27,7 +27,13 @@ import com.xmi.store.protocol.HomeTabProtocol;
 import com.xmi.store.util.UIUtils;
 import com.xmi.store.view.PageStateLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -44,7 +50,7 @@ public class AppTabFragment extends BaseFramgment {
     @Bind(R.id.mlistview)
     ListView mlistview;
 
-    private AppTabBean appTabBean;
+    private AppTabBean appTabBean = new AppTabBean();
 
     private AppTabAdapter homeTabAdapter;
 
@@ -64,8 +70,28 @@ public class AppTabFragment extends BaseFramgment {
             @Override
             public void onResponse(final Response response) throws IOException {
                 SystemClock.sleep(1500);
-                Log.e("xiaoxiao",response.body().string());
-                appTabBean = mProtocol.setDate(response.body().string(), AppTabBean.class);
+                List<AppInfo> list = new ArrayList<>();
+                try {
+                    JSONArray jsonArray = new JSONArray(response.body().string());
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        int id = jsonObject.getInt("id");
+                        String name = jsonObject.getString("name");
+                        String packageName = jsonObject.getString("packageName");
+                        String iconUrl = jsonObject.getString("iconUrl");
+                        double stars = jsonObject.getDouble("stars");
+                        int size = jsonObject.getInt("size");
+                        String downloadUrl = jsonObject.getString("downloadUrl");
+                        String des = jsonObject.getString("des");
+                        list.add(new AppInfo(id, name, packageName, iconUrl, (float) stars, size, downloadUrl, des));
+
+                    }
+                    appTabBean.setList(list);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                //½âÎöÊý¾Ý
                 UIUtils.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

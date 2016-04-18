@@ -2,6 +2,9 @@ package com.xmi.store.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.view.Window;
 import android.view.WindowManager;
@@ -9,6 +12,8 @@ import android.view.WindowManager;
 import com.xmi.store.R;
 import com.xmi.store.XmiApp;
 import com.xmi.store.tripartite.SystemBarTintManager;
+
+import java.util.Random;
 
 /**
  * User: xiucui.yu
@@ -66,6 +71,33 @@ public class UIUtils {
 
     private static boolean isMianThread() {
         return XmiApp.tid == android.os.Process.myTid();
+    }
+
+
+    public static GradientDrawable getbackground(int color) {
+
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setStroke(1, Color.TRANSPARENT);
+        drawable.setCornerRadius(3);
+        drawable.setColor(color);
+        return drawable;
+
+    }
+
+    public static int getRandomColor() {
+        Random random = new Random();
+        return Color.rgb(random.nextInt(200) + 20, random.nextInt(200) + 20, random.nextInt(200) + 20);
+    }
+
+
+    public static StateListDrawable getSelectbackground(GradientDrawable pree,GradientDrawable normal) {
+
+        StateListDrawable stateListDrawable =new StateListDrawable();
+        stateListDrawable.addState(new int[]{android.R.attr.state_pressed},pree);
+        stateListDrawable.addState(new int[]{},normal);
+        return stateListDrawable;
+
+
     }
 
 
