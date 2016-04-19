@@ -43,10 +43,11 @@ public class HomeTabFragment extends BaseFramgment {
     private RequestParams mRequestParams = new RequestParams();
 
     private HomeTabBean homeTabBean;
+    private int mCurrentIndex = 0;
 
     @Override
-    protected void initData() {
-        mRequestParams.putParams("index", 0);
+    protected void initData(int mCurrentIndex) {
+        mRequestParams.putParams("index", mCurrentIndex);
         mProtocol.homeTabUrl(mRequestParams, new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -93,6 +94,8 @@ public class HomeTabFragment extends BaseFramgment {
 
     @Override
     protected void onRefresh() {
+        mCurrentIndex = 0;
+        initData(mCurrentIndex);
 
     }
 

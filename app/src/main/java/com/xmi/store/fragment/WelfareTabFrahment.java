@@ -27,7 +27,7 @@ public class WelfareTabFrahment extends BaseFramgment {
     ListView mlistview;
 
     @Override
-    protected void initData() {
+    protected void initData(int index) {
 
     }
 

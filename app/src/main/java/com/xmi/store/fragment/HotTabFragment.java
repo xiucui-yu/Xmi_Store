@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,9 +55,11 @@ public class HotTabFragment extends BaseFramgment {
 
     HotLabelLayout hotLabelLayout;
 
+    private int mCurrentIndex=0;
+
     @Override
-    protected void initData() {
-        mRequestParams.putParams("index", 0);
+    protected void initData(int mCurrentIndex) {
+        mRequestParams.putParams("index", mCurrentIndex);
         mProtocol.getHot(mRequestParams, new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -66,23 +69,6 @@ public class HotTabFragment extends BaseFramgment {
             @Override
             public void onResponse(Response response) throws IOException {
                 SystemClock.sleep(1000);
-                /*List<String> tabNames = new ArrayList<>();
-                try {
-                    JSONArray jsonArray = new JSONArray(response.body().string());
-                    if (null == jsonArray) {
-                        setStatus(PageStateLayout.STATE_EMPTY);
-                        return;
-                    }
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        String tabName = jsonArray.getString(i);
-                        tabNames.add(tabName);
-                    }
-                    hotTabBean.setTabNames(tabNames);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }*/
-
                 try {
                     List<String> tabNames = new ArrayList<>();
                     JSONArray jsonArray = new JSONArray(response.body().string());
@@ -101,9 +87,11 @@ public class HotTabFragment extends BaseFramgment {
                     public void run() {
 
                         if (hotTabBean != null && hotTabBean.getTabNames().size() > 0) {
-
+                            setStatus(PageStateLayout.STATE_SUCCEED);
                             upladView(hotTabBean.getTabNames());
 
+                        } else {
+                            setStatus(PageStateLayout.STATE_EMPTY);
                         }
                     }
                 });
@@ -121,12 +109,13 @@ public class HotTabFragment extends BaseFramgment {
         //°´ÏÂµÄshape
         GradientDrawable pressedDrawable = UIUtils.getbackground(0xffcecece);
         for (int i = 0; i < strs.size(); i++) {
-
             TextView textView = new TextView(getActivity());
+            textView.setGravity(Gravity.CENTER);
             textView.setTextColor(Color.WHITE);
             textView.setText(strs.get(i));
-            int padding = UIUtils.sp2px(8);
-            textView.setPadding(padding, padding, padding, padding);
+            int tv_pading_w = UIUtils.sp2px(12);
+            int tv_pading_h = UIUtils.sp2px(10);
+            textView.setPadding(tv_pading_w, tv_pading_h, tv_pading_w, tv_pading_h);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
             GradientDrawable normalground = UIUtils.getbackground(UIUtils.getRandomColor());
 
@@ -150,18 +139,18 @@ public class HotTabFragment extends BaseFramgment {
 
     @Override
     protected void initAddition() {
-
         hotLabelLayout = new HotLabelLayout(getActivity());
-      //  hotLabelLayout.setBackgroundResource(R.mipmap.grid_item_bg_normal_9);
-        int pading = UIUtils.px2sp(13);
+        hotLabelLayout.setBackgroundResource(R.mipmap.grid_item_bg_normal);
+        int pading = UIUtils.sp2px(13);
         hotLabelLayout.setPadding(pading, pading, pading, pading);
-
 
     }
 
 
     @Override
     protected void onRefresh() {
+        mCurrentIndex=0;
+        initData(mCurrentIndex);
 
     }
 

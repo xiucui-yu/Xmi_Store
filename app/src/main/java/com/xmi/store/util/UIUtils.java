@@ -78,7 +78,7 @@ public class UIUtils {
 
         GradientDrawable drawable = new GradientDrawable();
         drawable.setStroke(1, Color.TRANSPARENT);
-        drawable.setCornerRadius(3);
+        drawable.setCornerRadius(sp2px(5));
         drawable.setColor(color);
         return drawable;
 

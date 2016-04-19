@@ -28,7 +28,9 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 
     protected BaseFramgment mFragment;
 
-    private BaseHolder mMoreHolder;
+    private MoreHolder mMoreHolder;
+
+    private LoadMoreListener listener;
 
 
     protected static final int TYPE_ITEM = 0;
@@ -69,7 +71,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
     @Override
     public int getCount() {
         if (mData != null && mData.size() > 0) {
-            return mData.size();
+            return mData.size() + 1;
         }
         return 0;
     }
@@ -87,7 +89,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
         return position;
     }
 
-/*
+
     @Override
     public int getViewTypeCount() {
         return super.getViewTypeCount() + 1;
@@ -95,45 +97,73 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        //���һ��item
-        *//*if (getCount() - 1 == position) {
+        if (getCount() - 1 == position) {
             return TYPE_LOAD_MORE;
-        } else {*//*
+        } else {
             return getItemType(position);
-       // }
+        }
     }
 
     protected int getItemType(int position) {
-        return TYPE_ITEM;
-    }*/
+        return 1;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         BaseHolder mHolder = null;
-      /*  if (getItemViewType(position) == TYPE_LOAD_MORE) {
+        if (getItemViewType(position) == TYPE_LOAD_MORE) {
             mHolder = getMoreHolder();
-        }*/
-        if (convertView == null) {
-            mHolder = getHolder();
         } else {
-            mHolder = (BaseHolder) convertView.getTag();
+            if (convertView == null) {
+                mHolder = getHolder();
+            } else {
+                mHolder = (BaseHolder) convertView.getTag();
+            }
+            mHolder.setDate(getItem(position));
         }
-        mHolder.setDate(getItem(position));
 
         return mHolder.getConvertView();
     }
 
-    public BaseHolder<T> getMoreHolder() {
+    protected MoreHolder getMoreHolder() {
         if (mMoreHolder == null) {
-            mMoreHolder = new MoreHolder(mFragment);
+            mMoreHolder = new MoreHolder(mFragment, this, hasLoadMore());
         }
         return mMoreHolder;
 
     }
 
+    @SuppressWarnings("unchecked")
+    public void setMoreHolderType(MoreHolder.LoadMoreType type) {
+        getMoreHolder().setDate(type);
+    }
+
+    /**
+     * 是否需要加载更多功能
+     * 默认：不需要
+     */
+    protected MoreHolder.LoadMoreType hasLoadMore() {
+        return MoreHolder.LoadMoreType.unLoadMore;
+    }
 
     protected abstract BaseHolder<T> getHolder();
 
+    public void setMoreListener(LoadMoreListener listener) {
+        this.listener = listener;
 
+    }
+
+    public void loadMore() {
+
+        if (listener != null) {
+            listener.onLoadMore();
+        }
+    }
+
+    ;
+
+    public interface LoadMoreListener {
+        void onLoadMore();
+    }
 }

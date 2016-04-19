@@ -56,10 +56,11 @@ public class AppTabFragment extends BaseFramgment {
 
     private RequestParams mRequestParams = new RequestParams();
     private AppTabProtocol mProtocol = new AppTabProtocol();
+    private int mCurrentIndex = 0;
 
     @Override
-    protected void initData() {
-        mRequestParams.putParams("index", 0);
+    protected void initData(final int mCurrentIndex) {
+        mRequestParams.putParams("index", mCurrentIndex);
         mProtocol.getAppTab(mRequestParams, new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -91,15 +92,22 @@ public class AppTabFragment extends BaseFramgment {
                     e.printStackTrace();
                 }
 
-                //Ω‚Œˆ ˝æ›
+                //Ëß£ÊûêÊï∞ÊçÆ
                 UIUtils.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (appTabBean == null) {
                             setStatus(PageStateLayout.STATE_EMPTY);
+                            swipeRefresh.setRefreshing(false);
                         } else {
                             setStatus(PageStateLayout.STATE_SUCCEED);
-                            homeTabAdapter.setData(appTabBean.getList());
+                            if (mCurrentIndex == 0) {
+                                homeTabAdapter.setData(appTabBean.getList());
+                            } else {
+                                homeTabAdapter.addData(appTabBean.getList());
+                            }
+                            swipeRefresh.setRefreshing(false);
+
                         }
                     }
                 });
@@ -121,7 +129,8 @@ public class AppTabFragment extends BaseFramgment {
 
     @Override
     protected void onRefresh() {
-
+        mCurrentIndex = 0;
+        initData(mCurrentIndex);
     }
 
     @Override

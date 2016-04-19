@@ -14,6 +14,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.xmi.store.R;
 import com.xmi.store.adapter.HomeTabAdapter;
+import com.xmi.store.adapter.base.BaseListAdapter;
 import com.xmi.store.fragment.base.BaseFramgment;
 import com.xmi.store.holder.HomeHeaderHolder;
 import com.xmi.store.moudle.AppInfo;
@@ -47,16 +48,18 @@ public class GameTabFragment extends BaseFramgment {
     @Bind(R.id.mlistview)
     ListView mlistview;
 
-    private GameTabBean gameTabBean=new GameTabBean();
+    private GameTabBean gameTabBean = new GameTabBean();
 
     private HomeTabAdapter homeTabAdapter;
 
     private RequestParams mRequestParams = new RequestParams();
     private GameTabProtocol mProtocol = new GameTabProtocol();
 
+    private int mCurrentPage = 0;
+
     @Override
-    protected void initData() {
-        mRequestParams.putParams("index", 0);
+    protected void initData(final int mCurrentPage) {
+        mRequestParams.putParams("index", mCurrentPage);
         mProtocol.getGame(mRequestParams, new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -67,7 +70,7 @@ public class GameTabFragment extends BaseFramgment {
             @Override
             public void onResponse(final Response response) throws IOException {
                 SystemClock.sleep(1500);
-               // gameTabBean = mProtocol.setDate(response.body().string(), GameTabBean.class);
+                // gameTabBean = mProtocol.setDate(response.body().string(), GameTabBean.class);
                 List<AppInfo> list = new ArrayList<>();
                 try {
                     JSONArray jsonArray = new JSONArray(response.body().string());
@@ -77,27 +80,36 @@ public class GameTabFragment extends BaseFramgment {
                         String name = jsonObject.getString("name");
                         String packageName = jsonObject.getString("packageName");
                         String iconUrl = jsonObject.getString("iconUrl");
-                        double stars =  jsonObject.getDouble("stars");
-                        int size =  jsonObject.getInt("size");
+                        double stars = jsonObject.getDouble("stars");
+                        int size = jsonObject.getInt("size");
                         String downloadUrl = jsonObject.getString("downloadUrl");
                         String des = jsonObject.getString("des");
-                        list.add(new AppInfo(id,name,packageName,iconUrl,(float)stars,size,downloadUrl,des));
+                        list.add(new AppInfo(id, name, packageName, iconUrl, (float) stars, size, downloadUrl, des));
 
                     }
-                    gameTabBean.setList(list);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                gameTabBean.setList(list);
+
+
                 UIUtils.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (gameTabBean == null) {
                             setStatus(PageStateLayout.STATE_EMPTY);
+                            swipeRefresh.setRefreshing(false);
                         } else {
                             setStatus(PageStateLayout.STATE_SUCCEED);
-                            homeTabAdapter.setData(gameTabBean.getList());
+                            if (mCurrentPage == 0) {
+                                homeTabAdapter.setData(gameTabBean.getList());
+                            } else {
+                                homeTabAdapter.addData(gameTabBean.getList());
+                            }
+                            swipeRefresh.setRefreshing(false);
                         }
-
                     }
                 });
             }
@@ -112,13 +124,22 @@ public class GameTabFragment extends BaseFramgment {
     @Override
     protected void initAddition() {
         homeTabAdapter = new HomeTabAdapter(this, null);
+        //加载更多的回调
+        homeTabAdapter.setMoreListener(new BaseListAdapter.LoadMoreListener() {
+
+            @Override
+            public void onLoadMore() {
+                //initData();
+            }
+        });
         mlistview.setAdapter(homeTabAdapter);
 
     }
 
     @Override
     protected void onRefresh() {
-
+        mCurrentPage = 0;
+        initData(mCurrentPage);
     }
 
     @Override

@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseFramgment extends Fragment {
     @Bind(R.id.swipe_refresh)
-    SwipeRefreshLayout swipeRefresh;
+    protected SwipeRefreshLayout swipeRefresh;
 
     protected View mMainView;
 
@@ -40,8 +40,14 @@ public abstract class BaseFramgment extends Fragment {
         stateLayout.setContextView(mMainView);
         stateLayout.setStatus(PageStateLayout.STATE_LOADING);
         stateLayout.setErrorClickListener(listener);
-        swipeRefresh.setColorSchemeResources(R.color.theme_orange);
+       /* swipeRefresh.setColorSchemeResources(R.color.theme_orange);*/
         swipeRefresh.setSize(SwipeRefreshLayout.LARGE);
+        // 设置下拉刷新时的颜色值,颜色值需要定义在xml中
+        swipeRefresh
+
+                .setColorScheme(R.color.yellow,
+                        R.color.green, R.color.blue,
+                        R.color.purple);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -55,10 +61,10 @@ public abstract class BaseFramgment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initData();
+        initData(0);
     }
 
-    protected abstract void initData();
+    protected abstract void initData(int index);
 
     protected abstract void initViewId();
 
@@ -75,7 +81,7 @@ public abstract class BaseFramgment extends Fragment {
         @Override
         public void callback() {
             stateLayout.setStatus(PageStateLayout.STATE_LOADING);
-            initData();
+            initData(0);
         }
     };
 

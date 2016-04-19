@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.xmi.store.R;
 import com.xmi.store.fragment.base.BaseFramgment;
+import com.xmi.store.holder.MoreHolder;
 
 /**
  * User: xiucui.yu
@@ -33,13 +34,11 @@ public abstract class BaseHolder<T> {
         this.data = itemBean;
         initData(data);
     }
-
     /**
      * 初始化布局
      *
      * @return
      */
-
     protected abstract View initView();
 
 
@@ -52,4 +51,8 @@ public abstract class BaseHolder<T> {
         return convertView;
     }
 
+    protected T getData() {
+        return data;
+
+    }
 }

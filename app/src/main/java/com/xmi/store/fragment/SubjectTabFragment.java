@@ -23,8 +23,9 @@ public class SubjectTabFragment extends BaseFramgment {
     @Bind(R.id.mlistview)
     ListView mlistview;
 
+
     @Override
-    protected void initData() {
+    protected void initData(int index) {
 
     }
 
