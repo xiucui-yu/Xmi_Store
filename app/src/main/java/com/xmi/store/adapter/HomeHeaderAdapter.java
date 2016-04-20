@@ -109,7 +109,13 @@ public class HomeHeaderAdapter extends PagerAdapter {
             mImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         }
-        Glide.with(mFragment).load(RequestUrlUtils.getImageUrl(picUrl)).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.default_image).into(mImage);
+        Glide.with(mFragment)
+                .load(RequestUrlUtils.getImageUrl(picUrl))
+                //淡入淡出动画
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.mipmap.default_image)
+                .into(mImage);
         view.addView(mImage);
         return mImage;
 

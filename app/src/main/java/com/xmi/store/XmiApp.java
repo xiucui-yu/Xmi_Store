@@ -2,6 +2,7 @@ package com.xmi.store;
 
 import android.app.Application;
 
+import com.squareup.leakcanary.LeakCanary;
 import com.xmi.store.util.AppInfo;
 
 /**
@@ -24,6 +25,8 @@ public class XmiApp extends Application {
         tid=android.os.Process.myTid();
         //初始化设备信息
         AppInfo.getInstance(applicaion);
+
+        LeakCanary.install(this);
     }
 
     public static XmiApp getApplicaion() {

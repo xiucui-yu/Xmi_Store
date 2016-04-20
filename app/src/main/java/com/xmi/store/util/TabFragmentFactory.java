@@ -1,5 +1,7 @@
 package com.xmi.store.util;
 
+import android.support.v4.app.Fragment;
+
 import com.xmi.store.fragment.AppTabFragment;
 import com.xmi.store.fragment.ClassifyTabFragment;
 import com.xmi.store.fragment.GameTabFragment;
@@ -48,10 +50,10 @@ public class TabFragmentFactory {
      */
     public static final int TAB_ID_WELFARE = 6;
     //保证只有一个对象
-    private static Map<Integer, BaseFramgment> mTabFragments = new HashMap<Integer, BaseFramgment>();
+    private static Map<Integer, Fragment> mTabFragments = new HashMap<Integer, Fragment>();
 
-    public static BaseFramgment getTabFragemntInstance(int tabId) {
-        BaseFramgment initBaseFramgment = mTabFragments.get(tabId);
+    public static Fragment getTabFragemntInstance(int tabId) {
+        Fragment initBaseFramgment = mTabFragments.get(tabId);
         if (initBaseFramgment == null) {
             switch (tabId) {
                 case TAB_ID_HOME:

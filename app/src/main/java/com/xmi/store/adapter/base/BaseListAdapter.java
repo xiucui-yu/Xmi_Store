@@ -105,7 +105,7 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
     }
 
     protected int getItemType(int position) {
-        return 1;
+        return TYPE_ITEM;
     }
 
     @Override
@@ -165,5 +165,9 @@ public abstract class BaseListAdapter<T> extends BaseAdapter {
 
     public interface LoadMoreListener {
         void onLoadMore();
+    }
+
+    public void complete(){
+        getMoreHolder().complete();
     }
 }

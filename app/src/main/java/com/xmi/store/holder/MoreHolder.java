@@ -53,9 +53,9 @@ public class MoreHolder extends BaseHolder<MoreHolder.LoadMoreType> {
     @Override
     protected void initData(LoadMoreType data) {
 
-        getConvertView().setVisibility(data == LoadMoreType.unLoadMore ? View.GONE : View.INVISIBLE);
-        rlMoreLoading.setVisibility(data == LoadMoreType.loadMore ? View.GONE : View.INVISIBLE);
-        rlMoreError.setVisibility(data == LoadMoreType.error ? View.GONE : View.INVISIBLE);
+        getConvertView().setVisibility(data == LoadMoreType.unLoadMore ? View.GONE : View.VISIBLE);
+        rlMoreLoading.setVisibility(data == LoadMoreType.loadMore ? View.VISIBLE : View.INVISIBLE);
+        rlMoreError.setVisibility(data == LoadMoreType.error ? View.VISIBLE : View.INVISIBLE);
 
     }
 
@@ -78,6 +78,10 @@ public class MoreHolder extends BaseHolder<MoreHolder.LoadMoreType> {
 
     public enum LoadMoreType {
         loadMore, unLoadMore, error
+    }
+
+    public void complete() {
+        idLoading = false;
     }
 
 

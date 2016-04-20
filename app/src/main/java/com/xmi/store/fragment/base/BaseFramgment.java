@@ -40,14 +40,17 @@ public abstract class BaseFramgment extends Fragment {
         stateLayout.setContextView(mMainView);
         stateLayout.setStatus(PageStateLayout.STATE_LOADING);
         stateLayout.setErrorClickListener(listener);
-       /* swipeRefresh.setColorSchemeResources(R.color.theme_orange);*/
+        /**
+         * 两种效果的代码完全相同，不同的只是兼容的v7，v4包，只需下载最新的v7兼容包就可以实现圆圈样式的下拉刷新。后面会附上最新v7包下载地址。
+         */
+        swipeRefresh.setColorSchemeResources(R.color.theme_orange);
         swipeRefresh.setSize(SwipeRefreshLayout.LARGE);
         // 设置下拉刷新时的颜色值,颜色值需要定义在xml中
-        swipeRefresh
+    /*    swipeRefresh
 
                 .setColorScheme(R.color.yellow,
                         R.color.green, R.color.blue,
-                        R.color.purple);
+                        R.color.purple);*/
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

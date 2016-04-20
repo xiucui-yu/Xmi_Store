@@ -3,6 +3,7 @@ package com.xmi.store.adapter;
 import com.xmi.store.adapter.base.BaseListAdapter;
 import com.xmi.store.fragment.base.BaseFramgment;
 import com.xmi.store.holder.AppDetailHolder;
+import com.xmi.store.holder.MoreHolder;
 import com.xmi.store.holder.base.BaseHolder;
 import com.xmi.store.moudle.AppInfo;
 
@@ -25,4 +26,11 @@ public class HomeTabAdapter extends BaseListAdapter<AppInfo> {
     protected BaseHolder getHolder() {
         return new AppDetailHolder(mFragment);
     }
+
+
+    protected MoreHolder.LoadMoreType hasLoadMore() {
+        return MoreHolder.LoadMoreType.loadMore;
+    }
+
+
 }

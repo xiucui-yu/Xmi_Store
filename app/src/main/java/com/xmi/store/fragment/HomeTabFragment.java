@@ -10,6 +10,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.xmi.store.R;
 import com.xmi.store.adapter.HomeTabAdapter;
+import com.xmi.store.adapter.base.BaseListAdapter;
 import com.xmi.store.fragment.base.BaseFramgment;
 import com.xmi.store.holder.HomeHeaderHolder;
 import com.xmi.store.moudle.HomeTabBean;
@@ -37,7 +38,6 @@ public class HomeTabFragment extends BaseFramgment {
 
     private HomeTabAdapter adapter;
 
-
     private HomeTabProtocol mProtocol = new HomeTabProtocol();
 
     private RequestParams mRequestParams = new RequestParams();
@@ -46,8 +46,8 @@ public class HomeTabFragment extends BaseFramgment {
     private int mCurrentIndex = 0;
 
     @Override
-    protected void initData(int mCurrentIndex) {
-        mRequestParams.putParams("index", mCurrentIndex);
+    protected void initData(final int mCurrentIndex) {
+        mRequestParams.putParams("index", 0);
         mProtocol.homeTabUrl(mRequestParams, new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -66,12 +66,20 @@ public class HomeTabFragment extends BaseFramgment {
                             setStatus(PageStateLayout.STATE_EMPTY);
                         } else {
                             setStatus(PageStateLayout.STATE_SUCCEED);
-                            adapter.setData(homeTabBean.getList());
-                            homeHeaderHolder.setDate(homeTabBean.getPicture());
-                        }
 
+                            if (mCurrentIndex == 0) {
+                                adapter.setData(homeTabBean.getList());
+                            } else {
+                                adapter.addData(homeTabBean.getList());
+                            }
+
+                            //通知加载完成
+                            adapter.complete();
+
+                        }
                     }
                 });
+
             }
         });
     }
@@ -88,6 +96,13 @@ public class HomeTabFragment extends BaseFramgment {
         adapter = new HomeTabAdapter(this, null);
         mlistview.setAdapter(adapter);
 
+        adapter.setMoreListener(new BaseListAdapter.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                initData(homeTabBean != null ? homeTabBean.getList().size() : 0);
+            }
+        });
+
         homeHeaderHolder = new HomeHeaderHolder(this);
         mlistview.addHeaderView(homeHeaderHolder.getConvertView());
     }
@@ -95,7 +110,7 @@ public class HomeTabFragment extends BaseFramgment {
     @Override
     protected void onRefresh() {
         mCurrentIndex = 0;
-        initData(mCurrentIndex);
+        initData(0);
 
     }
 

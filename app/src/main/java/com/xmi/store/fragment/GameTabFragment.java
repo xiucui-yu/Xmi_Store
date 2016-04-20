@@ -108,7 +108,6 @@ public class GameTabFragment extends BaseFramgment {
                             } else {
                                 homeTabAdapter.addData(gameTabBean.getList());
                             }
-                            swipeRefresh.setRefreshing(false);
                         }
                     }
                 });
@@ -129,7 +128,7 @@ public class GameTabFragment extends BaseFramgment {
 
             @Override
             public void onLoadMore() {
-                //initData();
+                initData(mCurrentPage);
             }
         });
         mlistview.setAdapter(homeTabAdapter);
