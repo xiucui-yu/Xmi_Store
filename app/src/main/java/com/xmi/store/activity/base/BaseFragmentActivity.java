@@ -18,7 +18,6 @@ public class BaseFragmentActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UIUtils.initImmersionStyle(this);
-
         AppInfo.initScreenInfo(this);
     }
 }

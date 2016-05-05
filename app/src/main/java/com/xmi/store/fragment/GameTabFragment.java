@@ -1,12 +1,8 @@
 package com.xmi.store.fragment;
 
-import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.squareup.okhttp.Callback;
@@ -16,12 +12,9 @@ import com.xmi.store.R;
 import com.xmi.store.adapter.HomeTabAdapter;
 import com.xmi.store.adapter.base.BaseListAdapter;
 import com.xmi.store.fragment.base.BaseFramgment;
-import com.xmi.store.holder.HomeHeaderHolder;
 import com.xmi.store.moudle.AppInfo;
 import com.xmi.store.moudle.GameTabBean;
-import com.xmi.store.moudle.HomeTabBean;
 import com.xmi.store.net.RequestParams;
-import com.xmi.store.protocol.AppDetailProtocol;
 import com.xmi.store.protocol.GameTabProtocol;
 import com.xmi.store.util.UIUtils;
 import com.xmi.store.view.PageStateLayout;
@@ -35,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * User: xiucui.yu
@@ -114,12 +106,10 @@ public class GameTabFragment extends BaseFramgment {
             }
         });
     }
-
     @Override
     protected void initViewId() {
         mMainView = View.inflate(getActivity(), R.layout.fragment_home_layout, null);
     }
-
     @Override
     protected void initAddition() {
         homeTabAdapter = new HomeTabAdapter(this, null);
@@ -132,15 +122,13 @@ public class GameTabFragment extends BaseFramgment {
             }
         });
         mlistview.setAdapter(homeTabAdapter);
-
     }
-
     @Override
     protected void onRefresh() {
+
         mCurrentPage = 0;
         initData(mCurrentPage);
     }
-
     @Override
     protected void onMore() {
 

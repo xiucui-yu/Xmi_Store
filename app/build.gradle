@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:24.0.0-alpha1'
     compile 'com.jakewharton:butterknife:7.0.0'
     compile 'com.squareup.okhttp:okhttp:2.7.2'
@@ -31,5 +31,6 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
     compile 'com.android.support:recyclerview-v7:21.0.+'
+    compile project(':expandableselector')
 }
 

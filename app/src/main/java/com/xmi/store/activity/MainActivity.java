@@ -1,10 +1,12 @@
 package com.xmi.store.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,7 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends BaseFragmentActivity {
+public class MainActivity extends BaseFragmentActivity implements View.OnClickListener {
 
     @Bind(R.id.iv_info)
     ImageView ivInfo;
@@ -55,6 +57,22 @@ public class MainActivity extends BaseFragmentActivity {
         tabs.setViewPager(pager);
         tabs.setIndicatorColorResource(R.color.text_color_blue);
         tabs.setCurrentItem(0);
+        ivInfo.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.iv_info:
+                //跳转到个人主页
+                Intent intent = new Intent();
+                intent.setClass(this, MyHomeActivity.class);
+                startActivity(intent);
+                //  overridePendingTransition(R.anim.tran_left_in, R.anim.scale_smaall_out);
+                break;
+        }
+
     }
 
     private class MyFragmentViewpager extends FragmentPagerAdapter {
@@ -98,5 +116,8 @@ public class MainActivity extends BaseFragmentActivity {
         }
     }
 
-
+    private boolean isLogin() {
+        return false;
+    }
 }
+

@@ -34,4 +34,16 @@
         <attr name="loadingText" format="string"/>
         <attr name="loadingTextAppearance" format="reference"/>
     </declare-styleable>
+
+
+    <!-- 自定义属性 -->
+    <attr name="root_view_bg" format="reference|color" />
+    <attr name="btn_bg" format="reference|color" />
+    <attr name="text_color" format="reference|color" />
+
+    <!--圆形头型-->
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
 </resources>

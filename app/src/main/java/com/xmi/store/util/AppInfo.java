@@ -6,15 +6,12 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
-
-import com.xmi.store.XmiApp;
 
 /**
  * User: xiucui.yu
@@ -132,5 +129,6 @@ public class AppInfo {
     public static Handler getUiHandler() {
         return instance.uiHandler;
     }
+
 
 }

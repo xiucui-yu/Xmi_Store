@@ -3,4 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="unknow_user">未知用户</string>
+    <string name="type_user_debug">测试用户</string>
+    <string name="type_user_wmi">Wmi用户</string>
 </resources>

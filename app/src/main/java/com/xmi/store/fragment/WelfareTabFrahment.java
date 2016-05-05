@@ -10,10 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.xmi.store.R;
-
+import com.xmi.store.colorful.Colorful;
+import com.xmi.store.colorful.setter.ViewGroupSetter;
 import com.xmi.store.util.ImageResource;
 
 import java.util.List;
@@ -32,7 +34,12 @@ public class WelfareTabFrahment extends Fragment {
 
 
     @Bind(R.id.my_recycler_view)
-    android.support.v7.widget.RecyclerView myRecyclerView;
+    RecyclerView myRecyclerView;
+    @Bind(R.id.btn)
+    Button btn;
+
+    Colorful mColorful;
+    boolean isNight = false;
 
     private ImageResource mImageRes;
 
@@ -49,17 +56,25 @@ public class WelfareTabFrahment extends Fragment {
         mMainView = View.inflate(getActivity(), R.layout.fragment_wekfare_layout, null);
         ButterKnife.bind(this, mMainView);
         mImageRes = ImageResource.getImageResource();
+        btn.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                changeThemeWithColorful();
+            }
+        });
 
-        //´´½¨Ä¬ÈÏµÄÏßĞÔLayoutManager
+        //åˆ›å»ºé»˜è®¤çš„çº¿æ€§LayoutManager
         mLayoutManager = new LinearLayoutManager(getActivity());
         myRecyclerView.setLayoutManager(mLayoutManager);
         mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        //Èç¹û¿ÉÒÔÈ·¶¨Ã¿¸öitemµÄ¸ß¶ÈÊÇ¹Ì¶¨µÄ£¬ÉèÖÃÕâ¸öÑ¡Ïî¿ÉÒÔÌá¸ßĞÔÄÜ
+        //å¦‚æœå¯ä»¥ç¡®å®šæ¯ä¸ªitemçš„é«˜åº¦æ˜¯å›ºå®šçš„ï¼Œè®¾ç½®è¿™ä¸ªé€‰é¡¹å¯ä»¥æé«˜æ€§èƒ½
         myRecyclerView.setHasFixedSize(true);
-        //´´½¨²¢ÉèÖÃAdapter
+        //åˆ›å»ºå¹¶è®¾ç½®Adapter
         mAdapter = new MyAdapter(mImageRes.getIconBitmap());
         myRecyclerView.setAdapter(mAdapter);
+
+        setupColorful();
 
 
         return mMainView;
@@ -73,6 +88,33 @@ public class WelfareTabFrahment extends Fragment {
         ButterKnife.unbind(this);
     }
 
+    /**
+     * è®¾ç½®å„ä¸ªè§†å›¾ä¸é¢œè‰²å±æ€§çš„å…³è”
+     */
+    private void setupColorful() {
+        ViewGroupSetter recyclerViewSetter = new ViewGroupSetter(myRecyclerView,
+                0);
+        recyclerViewSetter.childViewBgColor(R.id.imageView,
+                R.attr.text_color);
+
+        mColorful = new Colorful.Builder(this)
+                .backgroundColor(R.id.root_view, R.attr.root_view_bg)
+                        // è®¾ç½®viewçš„èƒŒæ™¯å›¾ç‰‡
+                .backgroundColor(R.id.btn, R.attr.btn_bg)
+
+                .setter(recyclerViewSetter) // æ‰‹åŠ¨è®¾ç½®setter
+                .create(); // è®¾ç½®æ–‡æœ¬é¢œè‰²
+    }
+
+    private void changeThemeWithColorful() {
+        if (!isNight) {
+            mColorful.setTheme(R.style.DayTheme);
+        } else {
+            mColorful.setTheme(R.style.NightTheme);
+        }
+        isNight = !isNight;
+    }
+
 
 }
 
@@ -83,7 +125,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         this.bitmapResource = bitmapResource;
     }
 
-    //´´½¨ĞÂView£¬±»LayoutManagerËùµ÷ÓÃ
+    //åˆ›å»ºæ–°Viewï¼Œè¢«LayoutManageræ‰€è°ƒç”¨
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
@@ -92,20 +134,20 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return vh;
     }
 
-    //½«Êı¾İÓë½çÃæ½øĞĞ°ó¶¨µÄ²Ù×÷
+    //å°†æ•°æ®ä¸ç•Œé¢è¿›è¡Œç»‘å®šçš„æ“ä½œ
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
         viewHolder.mImageView.setImageBitmap(bitmapResource.get(i));
     }
 
-    //»ñÈ¡Êı¾İµÄÊıÁ¿
+    //è·å–æ•°æ®çš„æ•°é‡
     @Override
     public int getItemCount() {
         return bitmapResource.size();
     }
 
-    //×Ô¶¨ÒåµÄViewHolder£¬³ÖÓĞÃ¿¸öItemµÄµÄËùÓĞ½çÃæÔªËØ
+    //è‡ªå®šä¹‰çš„ViewHolderï¼ŒæŒæœ‰æ¯ä¸ªItemçš„çš„æ‰€æœ‰ç•Œé¢å…ƒç´ 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView mImageView;
 
@@ -114,4 +156,6 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             mImageView = (ImageView) view.findViewById(R.id.imageView);
         }
     }
+
+
 }

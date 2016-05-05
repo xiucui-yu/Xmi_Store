@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Xmi_Store.iml" filepath="$PROJECT_DIR$/Xmi_Store.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/expandableselector/expandableselector.iml" filepath="$PROJECT_DIR$/expandableselector/expandableselector.iml" />
     </modules>
   </component>
 </project>
